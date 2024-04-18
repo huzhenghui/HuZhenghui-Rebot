@@ -9,7 +9,7 @@ os.system(f'git clone https://code.openxlab.org.cn/HuZhenghui/HuZhenghui-Robot.g
 os.system(f'cd {base_path} && git lfs pull')
 
 tokenizer = AutoTokenizer.from_pretrained(base_path,trust_remote_code=True)
-model = AutoModelForCausalLM.from_pretrained(base_path,trust_remote_code=True, torch_dtype=torch.float32, device_map='cpu')
+model = AutoModelForCausalLM.from_pretrained(base_path,trust_remote_code=True, torch_dtype=torch.float16, device_map='cpu')
 
 def chat(message,history):
     for response,history in model.stream_chat(tokenizer,message,history,max_length=2048,top_p=0.7,temperature=1):
