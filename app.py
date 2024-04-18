@@ -8,7 +8,7 @@ base_path = './HuZhenghui-Robot/'
 os.system(f'git clone https://code.openxlab.org.cn/HuZhenghui/HuZhenghui-Robot.git {base_path}')
 os.system(f'cd {base_path} && git lfs pull')
 
-tokenizer = AutoTokenizer.from_pretrained(base_path,trust_remote_code=True)
+tokenizer = AutoTokenizer.from_pretrained(base_path,trust_remote_code=True, torch_dtype=torch.float16, device_map='cpu')
 model = AutoModelForCausalLM.from_pretrained(base_path,trust_remote_code=True, torch_dtype=torch.float16, device_map='cpu')
 
 def chat(message,history):
