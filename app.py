@@ -10,11 +10,12 @@ base_path = './HuZhenghui-Robot/'
 clone_command = f'git clone https://code.openxlab.org.cn/HuZhenghui/HuZhenghui-Robot.git {base_path}'
 clone_process = subprocess.Popen(clone_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 out, err = clone_process.communicate()
+print(out.decode('utf-8'))
 print(err.decode('utf-8'))
 
 # Pull from the repository
 pull_command = f'cd {base_path} && git lfs pull'
-clone_process = subprocess.Popen(clone_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+pull_process = subprocess.Popen(pull_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 out, err = pull_process.communicate()
 print(out.decode('utf-8'))
 print(err.decode('utf-8'))
