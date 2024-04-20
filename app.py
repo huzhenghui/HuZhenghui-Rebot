@@ -1,12 +1,23 @@
 import gradio as gr
 import os
+import subprocess
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, AutoModel
 from openxlab.model import download
 
 base_path = './HuZhenghui-Robot/'
-os.system(f'git clone https://code.openxlab.org.cn/HuZhenghui/HuZhenghui-Robot.git {base_path}')
-os.system(f'cd {base_path} && git lfs pull')
+
+# Clone the repository
+clone_command = f'git clone https://code.openxlab.org.cn/HuZhenghui/HuZhenghui-Robot.git {base_path}'
+clone_process = subprocess.Popen(clone_command, stdout=subprocess.PIPE, shell=True)
+out, err = clone_process.communicate()
+print(out.decode('utf-8'))
+
+# Pull from the repository
+pull_command = f'cd {base_path} && git lfs pull'
+pull_process = subprocess.Popen(pull_command, stdout=subprocess.PIPE, shell=True)
+out, err = pull_process.communicate()
+print(out.decode('utf-8'))
 
 tokenizer = AutoTokenizer.from_pretrained(base_path,trust_remote_code=True)
 model = AutoModelForCausalLM.from_pretrained(base_path,trust_remote_code=True, torch_dtype=torch.float16).cuda()
